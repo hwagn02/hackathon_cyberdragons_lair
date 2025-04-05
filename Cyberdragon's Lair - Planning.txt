@@ -12,6 +12,7 @@ Figure out how class members can run variations on similar code (reacting to fla
 -= GAME TASKS =-
 
 Convince Floppotron to hand over a floppy drive
+    - Answer 3 questions correctly; leaving and entering room allows one to retry
 
 Combine computer components at table w/ floppy disk & CPU
     - Floppy drive	Floppotron
@@ -21,53 +22,179 @@ Combine computer components at table w/ floppy disk & CPU
           - Player chooses QWERTY, QWERTZ, or DVORAK layout
     - Convenient outlet sticker
     - Power strip?
+———————————————————————————————————————————————————————————————————————————————————————————
+-= DESIRED FEATURES =-
 
+Explorable maze
+
+Interactable characters & items
+
+Multi-window dialogue (press Enter to go to next set of lines)
+
+Maze image
+    - Updated as one explores, marks one's position and important items
+
+Scrolling dialogue
+    - Letters print in sequence
+
+ASCII images
+    - Rooms of note, characters, items
 
 ———————————————————————————————————————————————————————————————————————————————————————————
 -= COMPONENTS =-
 
 Main
-    - Runs Executive
+    - Initializes game & passes to Executive
     - Possibly displays loading screen? (Maybe let Executive do it)
     - 
 
 class Executive
     - self.flags: Dict of relevant flags for Rooms, Character, Items to reference
-    - self.inventory: Dict of player inventory
+    ? self.item_ref: Dict of all item types keyed by name
+    - self.inventory: Dict(?) of player inventory items, which are called by name
+    - self.images: Dict of ASCII_Images
+    - self.start(): Sets to start screen; runs self.run() once user starts it
+    - self.run(): Runs main game
+    - self.user_input([options], prompt="Select an option.", error_msg="Invalid option."): Receives a dict of valid options and names, prints list, prevents user from entering invalid option, returns valid choice
 
 class Map
-    - Stores Rooms in grid layout
+    - self.room_map: Stores Rooms in grid layout (list of lists)
+    - self.active_room: Tracks active Room
+    - self.img_map: Grid of Room tiles; active tile has character icon in centre (room.tile[?]). Defaults to empty strings of same size as room tiles.
+    - self.img: ImgASCII
     - Modifies Room connections(?)
-    - Tracks active Room
+
+    - self.get_pos(): Returns active room's position
+    - self.mod_tile(): Adds active Room's tile 
+    - self.write_map(): Writes img_map to ImgASCII self.img object
+
+    ? Build from a text file, w/ characters for paths, characters & items?
+    	- Probably not; one-way & locked doors needed
+    	- Maybe use for planning, though
+
+class Grid
+    - self.grid: num_rows x num_cols array of values.
+    - self.get_val(row,col)
+    - self.set_val(row,col,entry)
+    - self.is_valid_pos(row,col)
 
 class Room
-    - Node-like structure; links to other Rooms via "up," "down," "left," "right" member vars
-          - Can be one-way; Executive(?) code can directly alter connections as needed
+    - Node-like structure; links to other Rooms via "north," "south," "east," "west" member vars
+    	- Can be one-way or link further away; Executive(?) code can directly alter connections as needed
     - Can contain Item(s), Character(s), and interactable element(s) (Element class? Interactable class?)
+    - Handles player interactions
+
     - self.desc: String used to describe room; interacting with elements can alter desc
-          - Have as print_desc method?
+    	- Have as print_desc method?
+    - self.tile_str: String of a (? x ?) character tile; center char is self.tile[?]
+    	- Maybe make Grid? Easier modification of room layout
+    - self.pos: Position within overall Map.
+    - self.directions: dict of directions/movement options and Rooms linked to.
+    - self.actions: dict of available actions and results (other Room methods; methods can be passed as variables)
+    - self.items: list item names; Executive grabs Item objects
+    - self.characters: dict of character names & Characters
+    - self.is_visit: Boolean that determines if room was visited.
+
+    - self.is_visited(): Returns is_visit.
+    - self.visit(): Sets is_visit to True.
+    - self.add_item(item_name): Adds an item to the room's self.items. (Executive calls this when items are dropped in the room.)
+    - self.remove_item(item_name): Removes an item from the room's self.items.
 
     ? Should flags be stored in Rooms or elsewhere?
-          - Probably Executive/Map so several Rooms/Characters/etc. can view them
+    	- Probably Executive/Map so several Rooms/Characters/etc. can view them
 
     ? How to have different rooms run different code for descriptions?
           - Decision trees?
 
 class Character
-    - self.name: Name of character 
-    - Contains decision tree for interactions,
+    - self.name: Name of character
+    - self.room_desc: Description if found in room
+    - self.dia_tree: Contains DialogueTree for interactions
+    ? self.methods: Dict of method names and possible parameters(?)
+    	- Might be handled by DialogueTree
+
+class DialogueTree
+    - Tree of DiaNodes; user input determines Node chosen
+    - Recursive; "search" function follows Nodes until final Node returns
+    	? Should final Node return None or dict of keys to set?
+    - All Nodes include "Exit" option, which should return None
+
+class DiaNode(is_exit):
+    - self.dia_line: Dialogue line to print
+    - self.options: dict of option names & nodes each option connects to; "Exit" option defined by is_exit
+    - self.flags: dict of flag names and values to set to; may not be present
+
+class Inventory
+    - self.items: List of {name:itemname, count:count, grade:grade} dicts
+    - self.add_item(itemname,amount=1,grade=None): Adds amount of item to Inventory; if not in Inventory, add item
+    	- Only certain Items have Grades
+    - self.get_item(index): Gets and returns itemname/Item object
+
+    ? Should Inventory or Executive interact with Item objects? Probably latter...
 
 class Item
-    - 
-    - 
+    - self.name: Name of item
+    - self.room_desc: Description if found in room
+    - self.methods: Dict of method names and possible parameters(?)
 
+class ImgASCII
+    - Contains string of ASCII image read from a file
 
+class Initializer
+    ? Loads items, rooms, images(?)
+    ? Preprares dialogue
+
+———————————————————————————————————————————————————————————————————————————————————————————
+-= PLAYER ACTIONS =-
+
+Start Menu
+    - Type [START] to start
+    - [H]elp
+    - [E]xit
+
+In room
+    - Directions as available:
+    	- [N]orth
+    	- [E]ast
+    	- [S]outh
+    	- [W]est
+    - [I]nventory
+    ? [M]ap	(only if room images are made)
+    - [H]elp
+    - Room methods as available:
+    	- [S]earch
+    	- [P]ick up {Item}
+    	- [T]alk to {Character}
+
+Inventory
+    - [0] {Item 0.name} - {amount}
+    - [1] {Item 1.name} - {amount}
+    - [n] {Item N.name} - {amount}
+    - E[X]it	(returns to map)
+
+Item selected
+    - "Do what with {item.name}?"
+    - [0] Use
+    - [1] Drop
+    - [2] {item.method0 name}
+    - [3] {item.method1 name}
+    - E[X]it
+
+Talking to character
+    - "{character dialogue}"
+    - [0] Dialogue option 0
+    - [1] Dialogue option 1
+    - [n] Dialogue option n
+    - E[X]it	(may not appear in all cases)
 
 ———————————————————————————————————————————————————————————————————————————————————————————
 -= CREDITS =-
 
-Me
+H. Wagner
     - Planning
+
+Dr. Gibbons
+    - Python knowledge, answering silly questions and never giving up on me
 ———————————————————————————————————————————————————————————————————————————————————————————
 -=  =-
 

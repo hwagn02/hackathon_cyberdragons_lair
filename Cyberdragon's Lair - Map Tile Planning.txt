@@ -1,0 +1,25 @@
+Cyberdragon's Lair - Map Tile Planning
+These might be the only images this game has!
+
+ __ 
+|  |
+ ‾‾
+
+
+
+┌──┐
+| o |
+└──┘
+
+          ┌──┐
+          |   |
+          └  ┘
+┌───┐┌──┐┌  ┐┌──┐
+  o       
+└───┘└──┘└  ┘└──┘
+          ┌  ┐
+          |   |
+
+These work; Python's IDLE shell is monospaced.
+
+5 x 3 grid
