@@ -1,0 +1,75 @@
+Cyberdragon's Lair - Planning
+And so we begin!
+
+Explore mazelike lair, gather items, interact w/ characters, and leave w/ treasure... or so you hope.
+———————————————————————————————————————————————————————————————————————————————————————————
+-= TODOS =-
+
+Figure out how class members can run variations on similar code (reacting to flags, different dialogue trees, etc)
+    - WAIT CAN YOU PASS A DECISION TREE AS A CLASS VARIABLE??
+
+———————————————————————————————————————————————————————————————————————————————————————————
+-= GAME TASKS =-
+
+Convince Floppotron to hand over a floppy drive
+
+Combine computer components at table w/ floppy disk & CPU
+    - Floppy drive	Floppotron
+    - Monitor
+    - Keyboard
+    - Bag of Keycaps
+          - Player chooses QWERTY, QWERTZ, or DVORAK layout
+    - Convenient outlet sticker
+    - Power strip?
+
+
+———————————————————————————————————————————————————————————————————————————————————————————
+-= COMPONENTS =-
+
+Main
+    - Runs Executive
+    - Possibly displays loading screen? (Maybe let Executive do it)
+    - 
+
+class Executive
+    - self.flags: Dict of relevant flags for Rooms, Character, Items to reference
+    - self.inventory: Dict of player inventory
+
+class Map
+    - Stores Rooms in grid layout
+    - Modifies Room connections(?)
+    - Tracks active Room
+
+class Room
+    - Node-like structure; links to other Rooms via "up," "down," "left," "right" member vars
+          - Can be one-way; Executive(?) code can directly alter connections as needed
+    - Can contain Item(s), Character(s), and interactable element(s) (Element class? Interactable class?)
+    - self.desc: String used to describe room; interacting with elements can alter desc
+          - Have as print_desc method?
+
+    ? Should flags be stored in Rooms or elsewhere?
+          - Probably Executive/Map so several Rooms/Characters/etc. can view them
+
+    ? How to have different rooms run different code for descriptions?
+          - Decision trees?
+
+class Character
+    - self.name: Name of character 
+    - Contains decision tree for interactions,
+
+class Item
+    - 
+    - 
+
+
+
+———————————————————————————————————————————————————————————————————————————————————————————
+-= CREDITS =-
+
+Me
+    - Planning
+———————————————————————————————————————————————————————————————————————————————————————————
+-=  =-
+
+
+    - 
