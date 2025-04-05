@@ -86,13 +86,13 @@ class Room
 
     - self.desc: String used to describe room; interacting with elements can alter desc
     	- Have as print_desc method?
-    - self.tile_str: String of a (? x ?) character tile; center char is self.tile[?]
+    - self.tile_str: String of a (5 x 5) character tile; center char is self.tile[1][2]
     	- Maybe make Grid? Easier modification of room layout
     - self.pos: Position within overall Map.
     - self.directions: dict of directions/movement options and Rooms linked to.
     - self.actions: dict of available actions and results (other Room methods; methods can be passed as variables)
-    - self.items: list item names; Executive grabs Item objects
-    - self.characters: dict of character names & Characters
+    - self.items: list of item names; Executive grabs Item objects
+    - self.characters: list of character names (former: dict of character names & Characters)
     - self.is_visit: Boolean that determines if room was visited.
 
     - self.is_visited(): Returns is_visit.
