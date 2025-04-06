@@ -58,15 +58,17 @@ class Executive
     - self.user_input([options], prompt="Select an option.", error_msg="Invalid option."): Receives a dict of valid options and names, prints list, prevents user from entering invalid option, returns valid choice
 
 class Map
+    ? self.name: Map name as a string; may be unnecessary w/ 1 map or other organization
     - self.room_map: Stores Rooms in grid layout (list of lists)
-    - self.active_room: Tracks active Room
+    - self.active_room: Position, tracks active Room
     - self.img_map: Grid of Room tiles; active tile has character icon in centre (room.tile[?]). Defaults to empty strings of same size as room tiles.
     - self.img: ImgASCII
     - Modifies Room connections(?)
 
     - self.get_pos(): Returns active room's position
-    - self.mod_tile(): Adds active Room's tile 
-    - self.write_map(): Writes img_map to ImgASCII self.img object
+    - self.add_room(): Adds a Room at the given position.
+    - self.add_tile(): Adds active Room's tile 
+    - self.write_map_img(): Writes img_map to ImgASCII self.img object
 
     ? Build from a text file, w/ characters for paths, characters & items?
     	- Probably not; one-way & locked doors needed
