@@ -2,11 +2,11 @@
 Author: Hope Wagner
 Date: 05 Apr 2025
 HackKU 2025
-Last modified: 05 Apr 2025
+Last modified: 06 Apr 2025
 Purpose: Room class for individual rooms, which link to other Rooms in four directions (or more if needed).
          The Map class contains and manages these.
 '''
-# TODO: Test w/ Map, add more self.actions options, add tile code
+# TODO: Test w/ Map, add more self.actions options
 
 from grid import Grid
 

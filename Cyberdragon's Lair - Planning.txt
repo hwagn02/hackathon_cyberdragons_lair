@@ -27,7 +27,9 @@ Combine computer components at table w/ floppy disk & CPU
 
 Explorable maze
 
-Interactable characters & items
+Interactable items
+
+Interactable characters w/ dialogue tree
 
 Multi-window dialogue (press Enter to go to next set of lines)
 
@@ -56,7 +58,7 @@ class Executive
 
     - self.start(): Sets to start screen; runs self.run() once user starts it
     - self.run(): Runs main game
-    - self.user_options([options], number=True, prompt="Select an option.", error_msg="Invalid option."): Receives a dict or list of valid options and names, prints list, prevents user from entering invalid option, returns valid choice
+    - self.user_options([options], number=True, prompt="Select an option.", error_msg="Invalid option."): Receives a dict (or list?) of valid options and names, prints list, prevents user from entering invalid option, returns valid choice
 
 class Map
     ? self.name: Map name as a string; may be unnecessary w/ 1 map or other organization
@@ -157,7 +159,7 @@ Start Menu
     - [E]xit
 
 In room
-    - Directions as available:
+    - Move	(as available)
     	- [N]orth
     	- [E]ast
     	- [S]outh
@@ -167,7 +169,7 @@ In room
     - [H]elp
     - Room methods as available:
     	- [S]earch
-    	- [P]ick up {Item}
+    	    - [P]ick up {Item}
     	- [T]alk to {Character}
 
 Inventory
@@ -192,13 +194,42 @@ Talking to character
     - E[X]it	(may not appear in all cases)
 
 ———————————————————————————————————————————————————————————————————————————————————————————
+-= GAMEPLAY LOOP =-
+
+Start
+    - Show title screen, wait for user input
+    - Play intro
+    - Begin game
+
+Main
+    - Print map, room description
+    - Print available options, wait for valid user input (see In room actions above)
+
+Movement option
+    - Change location, return to Main
+
+Search
+    - Display items in room, or "No items found" if none
+    - Give option to pick up an item or exit
+    	- Pick up: Remove from room, add to inventory, return to Main
+    	- Exit: Return to Main
+
+Talk
+    - Talk to present character, starting dialogue tree
+    - Continue through dialogue tree until end
+    - flags possibly set
+    - Return to Main
+———————————————————————————————————————————————————————————————————————————————————————————
 -= CREDITS =-
 
 H. Wagner
-    - Planning
+    - Planning, code, errors
+
+Wagner family
+    - Dinner and moral support
 
 Dr. Gibbons
-    - Python knowledge, answering silly questions and never giving up on me
+    - Python knowledge, answering silly questions and never giving up on this weirdo
 ———————————————————————————————————————————————————————————————————————————————————————————
 -=  =-
 

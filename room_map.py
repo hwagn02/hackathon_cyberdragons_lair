@@ -19,6 +19,7 @@ class Map:
         
         self.active_pos = [init_row,init_col]
         self.active_room = self.room_map.get_val(init_row,init_col)
+        self.active_room.visit()
         self.player_char = 'o'
         #self.img_map = Grid(row,col)   Constructed from each Room's tile Grid
 
@@ -70,7 +71,7 @@ class Map:
 
             #Top
             for room in row:
-                if room.is_visited:
+                if room.is_visited():
                     if room.is_open_dir("north"):
                         str_map += "┌   ┐"
                     else:
@@ -82,7 +83,7 @@ class Map:
 
             #Middle
             for room in row:
-                if room.is_visited:
+                if room.is_visited():
                     if room.is_open_dir("west"):
                         str_map += "  "
                     else:
@@ -105,7 +106,7 @@ class Map:
 
             #Bottom
             for room in row:
-                if room.is_visited:
+                if room.is_visited():
                     if room.is_open_dir("south"):
                         str_map += "└   ┘"
                     else:

@@ -17,7 +17,7 @@ def main():
 
     #breakpoint()
     #Test of basic movement.
-    '''m.move('east')  #[0,1]
+    m.move('east')  #[0,1]
     m.move('east')  #Still [0,1]
     m.move('west') #[0,0]
     
@@ -27,17 +27,21 @@ def main():
     
     m.move('north') #Still [1,0]
     print(m)
-    print(m.active_pos)'''
+    print(m.active_pos)
 
     m.link_room([0,1],[1,1],'south','north')
     m.link_room([1,1],[2,1],'south','north')
     m.link_room([1,0],[1,1],'east','west')
     m.link_room([1,1],[1,2],'east','west')
-    m.get_room(1,0).centre = 'k'
-    m.get_room(1,0).add_item("key")
-    print(m)   
+    m.get_room(2,0).centre = 'k'
+    m.get_room(2,0).add_item("key")
+    print(m)
+
+    m.move('east')
+    m.move('east')
+    print(m)
             
-    print(m.get_room(1,0).remove_item(0))
+    print(m.get_room(2,0).remove_item(0))
     
 if __name__ == "__main__":
     main()
