@@ -24,8 +24,10 @@ class Room:
             "west": None
         }
 
-        #self.tile = Grid(3,5)
-        #self.tile_centre = centre
+        #Initial build of Tile.
+        #self.tile = Grid(3,5, ' ')
+        self.centre = centre
+        #self.make_tile()
         
         #Which actions are available in the room. Define more later.
         self.actions = {
@@ -81,10 +83,38 @@ class Room:
         '''Removes the specified item from the room and returns its name.'''
         return self.items.pop(index)
 
-    #def _make_tile(self):
-        '''Rebuilds the tile based on current directions and centre.'''
-        #pass
+    #Handled in Map class.
+    '''def make_tile(self,centre=" "):
+        #Rebuilds and sets the tile based on current directions and centre.
+        self.tile = Grid(3,5, ' ')
+        self.tile.set_val(0,0,'┌')
+        self.tile.set_val(0,4,'┐')
+        self.tile.set_val(2,0,'└')
+        self.tile.set_val(2,4,'┘')
+        
+        if self.is_open_dir["north"]:
+            pass
+        else:
+            pass
 
-    #def __str__(self):
-        '''Returns reconstructed tile based on available directions and centre.'''
-        #pass
+        if self.is_open_dir["east"]:
+            pass
+        else:
+            pass
+
+        if self.is_open_dir["south"]:
+            pass
+        else:
+            pass
+
+        if self.is_open_dir["west"]:
+            pass
+        else:
+            pass'''
+
+        
+
+    '''def __str__(self):
+        #Returns reconstructed tile based on available directions and centre.
+
+        pass'''

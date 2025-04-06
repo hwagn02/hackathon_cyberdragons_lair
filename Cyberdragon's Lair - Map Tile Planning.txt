@@ -11,15 +11,27 @@ These might be the only images this game has!
 | o |
 └──┘
 
-          ┌──┐
-          |   |
-          └  ┘
-┌───┐┌──┐┌  ┐┌──┐
-  o       
-└───┘└──┘└  ┘└──┘
+             ┌───┐
+             |    |
+             └    ┘
+┌───┐┌───┐┌    ┐┌──┐
+  o       		X
+└───┘└───┘└    ┘└──┘
           ┌  ┐
           |   |
 
+
+
 These work; Python's IDLE shell is monospaced.
 
-5 x 3 grid
+5 x 3 tile grid
+
+            ┌───┐
+            |    |
+            |    |
+┌───┐┌───┘     ┌──┐
+  o       
+└───┘└───┘     └──┘
+          ┌  ┐
+          |   |
+(might be too complex)
